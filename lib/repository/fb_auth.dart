@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/ui/main_screen.dart';
 import 'package:todo_app/ui/signin/signin_screen.dart';
 import 'package:todo_app/ui/sample/sample_screen.dart';
 
@@ -38,7 +39,7 @@ class FBAuth {
       );
       if (user != null) {
         Navigator.of(context).pushReplacement(
-          SampleScreen.route(),
+          MainScreen.route(),
         );
       }
     } on FirebaseAuthException catch (e) {
@@ -55,5 +56,14 @@ class FBAuth {
     Navigator.of(context).pushReplacement(
       SigninScreen.route(),
     );
+  }
+
+  bool checkAuth() {
+    final currentUser = _auth.currentUser;
+    if (currentUser == null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

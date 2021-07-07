@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/ui/util/drawer_view.dart';
-import 'sample_viewmodel.dart';
+import 'user_viewmodel.dart';
 
-// Since the state was moved to the view model, this is now a StatelessWidget.
-class SampleScreen extends StatelessWidget {
+class UserScreen extends StatelessWidget {
   static Route<dynamic> route() {
     return MaterialPageRoute<dynamic>(
-      builder: (_) => SampleScreen(),
+      builder: (_) => UserScreen(),
     );
   }
 
   // StateProviderを使い受け渡すデータを定義する
 // ※ Providerの種類は複数あるが、ここではデータを更新できるStateProviderを使う
   final countProvider = ChangeNotifierProvider(
-    (ref) => SampleViewModel(),
+    (ref) => UserViewModel(),
   );
   @override
   Widget build(BuildContext context) {

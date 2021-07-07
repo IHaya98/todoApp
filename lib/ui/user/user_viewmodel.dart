@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class SampleViewModel extends ChangeNotifier {
+class UserViewModel extends ChangeNotifier {
   // <-- extends ChangeNotifier
   int _counter = 0;
   int get counter => _counter;
