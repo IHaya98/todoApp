@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo_app/ui/util/drawer_view.dart';
 
 // Since the state was moved to the view model, this is now a StatelessWidget.
-class ButtomNavScreen extends StatelessWidget {
-  final buttomNavProvider = ChangeNotifierProvider(
-    (ref) => ButtomNavViewModel(),
-  );
+class BottomNavScreen extends StatelessWidget {
+  late ChangeNotifierProvider<ButtomNavViewModel> buttomNavProvider;
+  BottomNavScreen(
+      ChangeNotifierProvider<ButtomNavViewModel> buttomNavProvider) {
+    this.buttomNavProvider = buttomNavProvider;
+  }
 
   @override
   Widget build(BuildContext context) {

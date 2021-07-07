@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'home:',
             ),
             Consumer(
               builder: (context, watch, child) {

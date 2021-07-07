@@ -23,7 +23,7 @@ class UserScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'user',
             ),
             Consumer(
               builder: (context, watch, child) {
