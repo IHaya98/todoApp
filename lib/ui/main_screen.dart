@@ -25,7 +25,13 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sample'),
+        title: Consumer(
+          builder: (context, watch, child) {
+            return Text(watch(buttomNavProvider).title == ''
+                ? 'ホーム'
+                : watch(buttomNavProvider).title);
+          },
+        ),
       ),
       drawer: DrawerView(),
       body: Consumer(builder: (context, watch, child) {

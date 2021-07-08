@@ -32,10 +32,23 @@ class BottomNavScreen extends StatelessWidget {
 class ButtomNavViewModel extends ChangeNotifier {
   // <-- extends ChangeNotifier
   int _selectedTabIndex = 0;
+  String _title = '';
   int get selectedTabIndex => _selectedTabIndex;
+  String get title => _title;
 
   void onTabTapped(int index) {
     _selectedTabIndex = index;
+    switch (index) {
+      case 0:
+        _title = 'ホーム';
+        break;
+      case 1:
+        _title = '検索';
+        break;
+      case 2:
+        _title = 'ユーザー';
+        break;
+    }
     notifyListeners();
   }
 }
