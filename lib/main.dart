@@ -4,6 +4,7 @@ import 'package:todo_app/ui/signin/signin_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/repository/fb_auth.dart';
+import 'package:todo_app/ui/util/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,20 +23,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _loggedIn = FBAuth().checkAuth();
-    return _loggedIn
-        ? MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
-            home: MainScreen(),
-          )
-        : MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
-            home: SigninScreen(),
-          );
+    final FirstScreen = _loggedIn ? MainScreen() : SigninScreen();
+    return Consumer(builder: (context, watch, child) {
+      return MaterialApp(
+        title: 'Flutter Demo',
+        theme: watch(themeProvider).current,
+        home: FirstScreen,
+      );
+    });
   }
 }

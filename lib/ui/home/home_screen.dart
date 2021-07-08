@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo_app/ui/util/drawer_view.dart';
+import 'package:todo_app/ui/util/provider.dart';
 import 'home_viewmodel.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,11 +10,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // StateProviderを使い受け渡すデータを定義する
-// ※ Providerの種類は複数あるが、ここではデータを更新できるStateProviderを使う
-  final countProvider = ChangeNotifierProvider(
-    (ref) => HomeViewModel(),
-  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,12 +28,18 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     context.read(countProvider).increment();
+      //   },
+      //   tooltip: 'Increment',
+      //   child: Icon(Icons.add),
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.read(countProvider).increment();
+          context.read(themeProvider).toggle();
         },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.autorenew),
       ),
     );
   }

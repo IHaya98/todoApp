@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/repository/fb_auth.dart';
+import 'package:todo_app/ui/util/provider.dart';
 
 // Since the state was moved to the view model, this is now a StatelessWidget.
 class DrawerView extends StatelessWidget {
@@ -31,6 +33,15 @@ class DrawerView extends StatelessWidget {
             onTap: () {
               // Update the state of the app.
               FBAuth().signOut(context);
+            },
+          ),
+          Consumer(
+            builder: (context, watch, child) {
+              return new SwitchListTile(
+                value: watch(themeProvider).isDark,
+                title: Text('ダークモード'),
+                onChanged: (value) => {context.read(themeProvider).toggle()},
+              );
             },
           ),
         ],

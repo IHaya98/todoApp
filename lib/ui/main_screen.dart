@@ -5,6 +5,7 @@ import 'package:todo_app/ui/sample/sample_screen.dart';
 import 'package:todo_app/ui/user/user_screen.dart';
 import 'package:todo_app/ui/util/bottom_nav_view.dart';
 import 'package:todo_app/ui/util/drawer_view.dart';
+import 'package:todo_app/ui/util/provider.dart';
 
 // Since the state was moved to the view model, this is now a StatelessWidget.
 class MainScreen extends StatelessWidget {
@@ -13,10 +14,6 @@ class MainScreen extends StatelessWidget {
       builder: (_) => MainScreen(),
     );
   }
-
-  final buttomNavProvider = ChangeNotifierProvider(
-    (ref) => ButtomNavViewModel(),
-  );
 
   static List<Widget> _pageList = [
     HomeScreen(),
@@ -34,7 +31,7 @@ class MainScreen extends StatelessWidget {
       body: Consumer(builder: (context, watch, child) {
         return _pageList[watch(buttomNavProvider).selectedTabIndex];
       }),
-      bottomNavigationBar: BottomNavScreen(buttomNavProvider),
+      bottomNavigationBar: BottomNavScreen(),
     );
   }
 }
