@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo_app/ui/util/drawer_view.dart';
+import 'package:todo_app/ui/util/provider.dart';
 import 'sample_viewmodel.dart';
 
 // Since the state was moved to the view model, this is now a StatelessWidget.
@@ -36,10 +36,9 @@ class SampleScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.read(countProvider).increment();
+          context.read(themeProvider).toggle();
         },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.autorenew),
       ),
     );
   }

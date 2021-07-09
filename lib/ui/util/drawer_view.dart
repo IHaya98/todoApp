@@ -15,14 +15,23 @@ class DrawerView extends StatelessWidget {
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
+          SizedBox(
+            height: 60,
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'メニュー',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.white,
+                ),
+              ),
             ),
-            child: Text('ドロワーメニュー'),
           ),
           ListTile(
-            title: Text('アイテム１'),
+            title: Text('test'),
             onTap: () {
               // Update the state of the app.
               // ...
@@ -30,6 +39,7 @@ class DrawerView extends StatelessWidget {
           ),
           ListTile(
             title: Text('ログアウト'),
+            trailing: Icon(Icons.logout),
             onTap: () {
               // Update the state of the app.
               FBAuth().signOut(context);

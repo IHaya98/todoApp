@@ -32,6 +32,17 @@ class MainScreen extends StatelessWidget {
                 : watch(buttomNavProvider).title);
           },
         ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              context.read(todoListProvider).readTodoList([], context);
+            },
+            child: Text('更新する'),
+            style: TextButton.styleFrom(
+              primary: Colors.black,
+            ),
+          ),
+        ],
       ),
       drawer: DrawerView(),
       body: Consumer(builder: (context, watch, child) {

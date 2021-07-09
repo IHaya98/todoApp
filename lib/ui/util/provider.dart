@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/ui/home/home_viewmodel.dart';
+import 'package:todo_app/ui/todo_regist/todo_regist_viewmodel.dart';
 import 'package:todo_app/ui/util/bottom_nav_view.dart';
 import 'package:todo_app/ui/util/mytheme_model.dart';
 
@@ -14,4 +15,12 @@ final countProvider = ChangeNotifierProvider(
 
 final buttomNavProvider = ChangeNotifierProvider(
   (ref) => ButtomNavViewModel(),
+);
+
+final todoRegistProvider = ChangeNotifierProvider(
+  (ref) => TodoRegistViewModel(),
+);
+
+final todoListProvider = ChangeNotifierProvider(
+  (ref) => HomeViewModelList(),
 );

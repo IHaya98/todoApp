@@ -7,23 +7,26 @@ class BottomNavScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, watch, child) {
-      return BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'ホーム',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: '検索',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.supervised_user_circle),
-            label: 'ユーザー',
-          ),
-        ],
-        currentIndex: watch(buttomNavProvider).selectedTabIndex,
-        onTap: context.read(buttomNavProvider).onTabTapped,
+      return SizedBox(
+        height: 80,
+        child: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'ホーム',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: '検索',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.supervised_user_circle),
+              label: 'ユーザー',
+            ),
+          ],
+          currentIndex: watch(buttomNavProvider).selectedTabIndex,
+          onTap: context.read(buttomNavProvider).onTabTapped,
+        ),
       );
     });
   }
