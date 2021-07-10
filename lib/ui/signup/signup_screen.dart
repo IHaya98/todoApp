@@ -31,6 +31,12 @@ class SignupScreen extends StatelessWidget {
             onChanged: (value) => context.read(signupProvider).email = value,
           ),
           TextFormField(
+            decoration: InputDecoration(labelText: 'Username'),
+            validator: (value) => value!.isEmpty ? 'ユーザー名は必須項目' : null,
+            onChanged: (value) =>
+                context.read(signupProvider).user_name = value,
+          ),
+          TextFormField(
             decoration: InputDecoration(labelText: 'Password'),
             validator: (value) => value!.isEmpty ? 'パスワードは必須項目' : null,
             onChanged: (value) => context.read(signupProvider).password = value,
@@ -46,8 +52,11 @@ class SignupScreen extends StatelessWidget {
                 onPrimary: Colors.white,
               ),
               onPressed: () {
-                FBAuth().signUp(context.read(signupProvider).email,
-                    context.read(signupProvider).password, context);
+                FBAuth().signUp(
+                    context.read(signupProvider).email,
+                    context.read(signupProvider).user_name,
+                    context.read(signupProvider).password,
+                    context);
               },
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/repository/fs_user.dart';
 import 'package:todo_app/ui/main_screen.dart';
 import 'package:todo_app/ui/signin/signin_screen.dart';
 import 'package:todo_app/ui/sample/sample_screen.dart';
@@ -7,14 +8,15 @@ import 'package:todo_app/ui/sample/sample_screen.dart';
 class FBAuth {
   final _auth = FirebaseAuth.instance;
 
-  Future<void> signUp(
-      String email, String password, BuildContext context) async {
+  Future<void> signUp(String email, String user_name, String password,
+      BuildContext context) async {
     try {
       final user = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       if (user != null) {
+        await FSUser().registUser(email, user_name, context);
         Navigator.of(context).push(
           SigninScreen.route(),
         );
