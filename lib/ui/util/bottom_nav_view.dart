@@ -8,7 +8,7 @@ class BottomNavScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, watch, child) {
       return SizedBox(
-        height: 80,
+        height: 100,
         child: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
