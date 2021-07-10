@@ -1,12 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/repository/fs_todo.dart';
-import 'package:todo_app/ui/main_screen.dart';
-import 'package:todo_app/ui/util/drawer_view.dart';
 import 'package:todo_app/ui/util/provider.dart';
-import 'todo_regist_viewmodel.dart';
 
 // Since the state was moved to the view model, this is now a StatelessWidget.
 class TodoRegistScreen extends StatelessWidget {
@@ -30,7 +25,7 @@ class TodoRegistScreen extends StatelessWidget {
             },
             child: Text('追加する'),
             style: TextButton.styleFrom(
-              primary: Colors.black,
+              primary: Colors.white,
             ),
           ),
         ],

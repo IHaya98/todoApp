@@ -34,12 +34,10 @@ class MainScreen extends StatelessWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () {
-              context.read(todoListProvider).readTodoList([], context);
-            },
+            onPressed: () {},
             child: Text('更新する'),
             style: TextButton.styleFrom(
-              primary: Colors.black,
+              primary: Colors.white,
             ),
           ),
         ],
