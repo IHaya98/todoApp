@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     final FirstScreen = _loggedIn ? MainScreen() : SigninScreen();
     return Consumer(builder: (context, watch, child) {
       return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'TodoApp',
         theme: watch(themeProvider).current,
         home: FirstScreen,
       );

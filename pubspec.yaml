@@ -83,4 +83,5 @@ flutter:
 flutter_native_splash:
   image: "assets/icon/emo_5.png"
   color: "#2676BD"
+  fullscreen: true
 
