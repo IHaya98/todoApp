@@ -22,7 +22,10 @@ class SigninScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('ログイン'),
+        backgroundColor: Colors.white.withOpacity(0.0),
+        elevation: 0.0,
       ),
+      extendBodyBehindAppBar: true,
       body: Stack(
         children: [
           Container(
@@ -69,6 +72,9 @@ class SigninScreen extends StatelessWidget {
                       hintStyle: TextStyle(color: Colors.white),
                       labelStyle: TextStyle(color: Colors.white),
                     ),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                     validator: (value) => value!.isEmpty ? 'Eメールは必須項目' : null,
                     onChanged: (value) =>
                         context.read(signinProvider).email = value,
@@ -85,6 +91,9 @@ class SigninScreen extends StatelessWidget {
                       ),
                       hintStyle: TextStyle(color: Colors.white),
                       labelStyle: TextStyle(color: Colors.white),
+                    ),
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
                     validator: (value) => value!.isEmpty ? 'パスワードは必須項目' : null,
                     onChanged: (value) =>

@@ -18,6 +18,7 @@ class MainScreen extends StatelessWidget {
   static List<Widget> _pageList = [
     HomeScreen(),
     SampleScreen(),
+    SampleScreen(),
     UserScreen(),
   ];
 

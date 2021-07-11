@@ -20,10 +20,15 @@ class BottomNavScreen extends StatelessWidget {
               label: '検索',
             ),
             BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: 'お気に入り',
+            ),
+            BottomNavigationBarItem(
               icon: Icon(Icons.supervised_user_circle),
               label: 'ユーザー',
             ),
           ],
+          type: BottomNavigationBarType.fixed,
           currentIndex: watch(buttomNavProvider).selectedTabIndex,
           onTap: context.read(buttomNavProvider).onTabTapped,
         ),
@@ -49,6 +54,9 @@ class ButtomNavViewModel extends ChangeNotifier {
         _title = '検索';
         break;
       case 2:
+        _title = 'お気に入り';
+        break;
+      case 3:
         _title = 'ユーザー';
         break;
     }

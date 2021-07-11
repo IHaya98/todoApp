@@ -21,7 +21,10 @@ class SignupScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('新規登録'),
+        backgroundColor: Colors.white.withOpacity(0.0),
+        elevation: 0.0,
       ),
+      extendBodyBehindAppBar: true,
       body: Stack(
         children: [
           Container(
@@ -29,7 +32,7 @@ class SignupScreen extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/image/login.png'),
+                image: AssetImage('assets/image/signup.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -68,6 +71,9 @@ class SignupScreen extends StatelessWidget {
                       hintStyle: TextStyle(color: Colors.white),
                       labelStyle: TextStyle(color: Colors.white),
                     ),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                     validator: (value) => value!.isEmpty ? 'Eメールは必須項目' : null,
                     onChanged: (value) =>
                         context.read(signupProvider).email = value,
@@ -85,6 +91,9 @@ class SignupScreen extends StatelessWidget {
                       hintStyle: TextStyle(color: Colors.white),
                       labelStyle: TextStyle(color: Colors.white),
                     ),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                     validator: (value) => value!.isEmpty ? 'ユーザー名は必須項目' : null,
                     onChanged: (value) =>
                         context.read(signupProvider).user_name = value,
@@ -101,6 +110,9 @@ class SignupScreen extends StatelessWidget {
                       ),
                       hintStyle: TextStyle(color: Colors.white),
                       labelStyle: TextStyle(color: Colors.white),
+                    ),
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
                     validator: (value) => value!.isEmpty ? 'パスワードは必須項目' : null,
                     onChanged: (value) =>
