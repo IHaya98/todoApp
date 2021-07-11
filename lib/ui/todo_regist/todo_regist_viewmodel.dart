@@ -9,4 +9,15 @@ class TodoRegistViewModel extends ChangeNotifier {
   String _detail = '';
   String get detail => _detail;
   set detail(String value) => _detail = value;
+
+  String _category = '';
+  String get category => _category;
+  set category(String value) => _category = value;
+
+  late DateTime _date = DateTime.now();
+  DateTime get date => _date;
+  set date(DateTime value) => {
+        _date = value,
+        notifyListeners(),
+      };
 }

@@ -1,4 +1,7 @@
+import 'package:intl/intl.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/repository/fs_todo.dart';
 import 'package:todo_app/ui/util/provider.dart';
@@ -12,16 +15,22 @@ class TodoRegistScreen extends StatelessWidget {
     );
   }
 
+  final format = DateFormat("yyyy年MM月dd日");
   @override
   Widget build(BuildContext context) {
+    List<String> _dropDownMenu = ['課題', '要望', 'タスク'];
     return Scaffold(
       appBar: AppBar(
         title: Text('新規'),
         actions: [
           TextButton(
             onPressed: () {
-              FSTodo().registTodo(context.read(todoRegistProvider).title,
-                  context.read(todoRegistProvider).detail, context);
+              FSTodo().registTodo(
+                  context.read(todoRegistProvider).title,
+                  context.read(todoRegistProvider).detail,
+                  context.read(todoRegistProvider).date,
+                  context.read(todoRegistProvider).category,
+                  context);
             },
             child: Text('追加する'),
             style: TextButton.styleFrom(
@@ -34,22 +43,82 @@ class TodoRegistScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextFormField(
-              decoration: InputDecoration(labelText: 'タイトル'),
-              validator: (value) => value!.isEmpty ? 'タイトルは必須項目' : null,
-              onChanged: (value) =>
-                  context.read(todoRegistProvider).title = value,
-            ),
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: 'TODO',
-                hintText: '何をする？',
+            Container(
+              width: 350,
+              child: DateTimeField(
+                decoration: InputDecoration(
+                  labelText: '日付',
+                  icon: Icon(Icons.calendar_today),
+                ),
+                format: format,
+                onShowPicker: (context, currentValue) async {
+                  final date = await showDatePicker(
+                      context: context,
+                      firstDate: DateTime(1900),
+                      initialDate: currentValue ?? DateTime.now(),
+                      lastDate: DateTime(2100));
+                  // if (date != null) {
+                  //   final time = await showTimePicker(
+                  //     context: context,
+                  //     initialTime:
+                  //         TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                  //   );
+                  //   return DateTimeField.combine(date, time);
+                  // } else {
+                  if (date != null) {
+                    context.read(todoRegistProvider).date = date;
+                  }
+                  return date;
+                  // }
+                },
               ),
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              validator: (value) => value!.isEmpty ? 'Todoは必須項目' : null,
-              onChanged: (value) =>
-                  context.read(todoRegistProvider).detail = value,
+            ),
+            Container(
+              width: 350,
+              child: DropdownButtonFormField(
+                decoration: InputDecoration(
+                  icon: Icon(Icons.category),
+                  labelText: 'カテゴリー',
+                ),
+                onChanged: (newValue) {
+                  context.read(todoRegistProvider).category =
+                      newValue.toString();
+                },
+                items:
+                    _dropDownMenu.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ),
+            Container(
+              width: 350,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'タイトル',
+                  icon: Icon(Icons.title),
+                ),
+                validator: (value) => value!.isEmpty ? 'タイトルは必須項目' : null,
+                onChanged: (value) =>
+                    context.read(todoRegistProvider).title = value,
+              ),
+            ),
+            Container(
+              width: 350,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'TODO',
+                  hintText: '何をする？',
+                  icon: Icon(Icons.subtitles),
+                ),
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                validator: (value) => value!.isEmpty ? 'Todoは必須項目' : null,
+                onChanged: (value) =>
+                    context.read(todoRegistProvider).detail = value,
+              ),
             ),
           ],
         ),

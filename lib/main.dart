@@ -22,14 +22,27 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _loggedIn = FBAuth().checkAuth();
-    final FirstScreen = _loggedIn ? MainScreen() : SigninScreen();
-    return Consumer(builder: (context, watch, child) {
-      return MaterialApp(
-        title: 'TodoApp',
-        theme: watch(themeProvider).current,
-        home: FirstScreen,
-      );
-    });
+    return loggedIn(context);
+  }
+
+  FutureBuilder loggedIn(BuildContext context) {
+    return FutureBuilder(
+      future: FBAuth().checkAuth(context),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(
+            child: const CircularProgressIndicator(),
+          );
+        }
+        final FirstScreen = snapshot.data ? MainScreen() : SigninScreen();
+        return Consumer(builder: (context, watch, child) {
+          return MaterialApp(
+            title: 'TodoApp',
+            theme: watch(themeProvider).current,
+            home: FirstScreen,
+          );
+        });
+      },
+    );
   }
 }

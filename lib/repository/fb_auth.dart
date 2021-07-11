@@ -4,6 +4,8 @@ import 'package:todo_app/repository/fs_user.dart';
 import 'package:todo_app/ui/main_screen.dart';
 import 'package:todo_app/ui/signin/signin_screen.dart';
 import 'package:todo_app/ui/sample/sample_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo_app/ui/util/provider.dart';
 
 class FBAuth {
   final _auth = FirebaseAuth.instance;
@@ -40,6 +42,7 @@ class FBAuth {
         password: password,
       );
       if (user != null) {
+        await FSUser().readUser(email, context);
         Navigator.of(context).pushReplacement(
           MainScreen.route(),
         );
@@ -60,11 +63,12 @@ class FBAuth {
     );
   }
 
-  bool checkAuth() {
+  Future<bool> checkAuth(BuildContext context) async {
     final currentUser = _auth.currentUser;
     if (currentUser == null) {
       return false;
     } else {
+      await FSUser().readUser(currentUser.email, context);
       return true;
     }
   }

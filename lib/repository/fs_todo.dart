@@ -10,7 +10,8 @@ import 'package:todo_app/ui/util/provider.dart';
 class FSTodo {
   final _fs_todo = FirebaseFirestore.instance.collection('todo');
 
-  Future<void> registTodo(String title, String detail, BuildContext context) {
+  Future<void> registTodo(String title, String detail, DateTime date,
+      String category, BuildContext context) {
     String id = Uuid().v1();
     return _fs_todo
         .doc(id)
@@ -19,6 +20,8 @@ class FSTodo {
           'user_id': context.read(userProvider).user_id,
           'title': title,
           'detail': detail,
+          'deadline': date,
+          'category': category,
           'created_dt': Timestamp.now()
         })
         .then((value) => {

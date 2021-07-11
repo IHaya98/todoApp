@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/repository/fs_todo.dart';
 import 'package:todo_app/ui/todo_regist/todo_regist_screen.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo_app/ui/util/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   static Route<dynamic> route() {
@@ -30,10 +33,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget buildTodoList() {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('todo')
-          .orderBy('created_dt', descending: true)
-          .snapshots(),
+      stream: FirebaseFirestore.instance.collection('todo').snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
           return const Center(
@@ -48,37 +48,48 @@ class HomeScreen extends StatelessWidget {
             (DocumentSnapshot document) {
               final data = document.data()! as Map<String, dynamic>;
               return Card(
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(Icons.album),
-                      title: Text('${data['title']}'),
-                      subtitle: Text('${data['detail']}'),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {},
-                          child: Text('更新する'),
-                          style: TextButton.styleFrom(
-                            primary: Colors.blue,
+                child: Padding(
+                  padding: EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListTile(
+                        leading: Icon(Icons.task),
+                        title: Text('${data['title']}'),
+                        subtitle: Text('${data['detail']}'),
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                          '締切日：${DateFormat("yyyy年MM月dd日").format(data['deadline'].toDate())}'),
+                      SizedBox(height: 12),
+                      Text('カテゴリー：${data['category']}'),
+                      SizedBox(height: 12),
+                      Text('by ${context.read(userProvider).user_name}'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () {},
+                            child: Text('更新する'),
+                            style: TextButton.styleFrom(
+                              primary: Colors.blue,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 20),
-                        TextButton(
-                          onPressed: () {
-                            FSTodo().deleteTodo(data['id'], context);
-                          },
-                          child: Text('削除する'),
-                          style: TextButton.styleFrom(
-                            primary: Colors.blue,
+                          SizedBox(width: 20),
+                          TextButton(
+                            onPressed: () {
+                              FSTodo().deleteTodo(data['id'], context);
+                            },
+                            child: Text('削除する'),
+                            style: TextButton.styleFrom(
+                              primary: Colors.blue,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 20),
-                      ],
-                    )
-                  ],
+                          SizedBox(width: 20),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               );
             },
