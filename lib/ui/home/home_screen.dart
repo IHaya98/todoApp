@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            TodoRegistScreen.route(),
+            TodoRegistScreen.route(context),
           );
         },
         child: Icon(Icons.add_circle_outline),
@@ -69,7 +69,18 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                TodoRegistScreen.route_update(
+                                  context,
+                                  data['id'],
+                                  data['title'],
+                                  data['detail'],
+                                  data['deadline'],
+                                  data['category'],
+                                ),
+                              );
+                            },
                             child: Text('更新する'),
                             style: TextButton.styleFrom(
                               primary: Colors.blue,
