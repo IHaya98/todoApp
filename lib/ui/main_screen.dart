@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/ui/home/home_screen.dart';
 import 'package:todo_app/ui/sample/sample_screen.dart';
+import 'package:todo_app/ui/search/search_screen.dart';
 import 'package:todo_app/ui/user/user_screen.dart';
 import 'package:todo_app/ui/util/bottom_nav_view.dart';
 import 'package:todo_app/ui/util/drawer_view.dart';
@@ -17,7 +18,7 @@ class MainScreen extends StatelessWidget {
 
   static List<Widget> _pageList = [
     HomeScreen(),
-    SampleScreen(),
+    SearchScreen(),
     SampleScreen(),
     UserScreen(),
   ];

@@ -6,10 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/ui/util/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class SearchScreen extends StatelessWidget {
   static Route<dynamic> route() {
     return MaterialPageRoute<dynamic>(
-      builder: (_) => HomeScreen(),
+      builder: (_) => SearchScreen(),
     );
   }
 
@@ -44,73 +44,68 @@ class HomeScreen extends StatelessWidget {
           return const Text('Something went wrong');
         }
         return ListView(
-          children: snapshot.data!.docs.map(
-            (DocumentSnapshot document) {
-              final data = document.data()! as Map<String, dynamic>;
-              if (data['user_id'] == context.read(userProvider).user_id) {
-                return Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ListTile(
-                          leading: Icon(Icons.task),
-                          title: Text('${data['title']}'),
-                          subtitle: Text('${data['detail']}'),
-                        ),
-                        SizedBox(height: 12),
-                        Text(
-                            '締切日：${DateFormat("yyyy年MM月dd日").format(data['deadline'].toDate())}'),
-                        SizedBox(height: 12),
-                        Text('カテゴリー：${data['category']}'),
-                        SizedBox(height: 12),
-                        Text('by ${context.read(userProvider).user_name}'),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            FavoriteButton(data),
-                            SizedBox(width: 20),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  TodoRegistScreen.route_update(
-                                    context,
-                                    data['id'],
-                                    data['title'],
-                                    data['detail'],
-                                    data['deadline'],
-                                    data['category'],
-                                  ),
-                                );
-                              },
-                              child: Text('更新する'),
-                              style: TextButton.styleFrom(
-                                primary: Colors.blue,
-                              ),
-                            ),
-                            SizedBox(width: 20),
-                            TextButton(
-                              onPressed: () {
-                                FSTodo().deleteTodo(data['id'], context);
-                              },
-                              child: Text('削除する'),
-                              style: TextButton.styleFrom(
-                                primary: Colors.blue,
-                              ),
-                            ),
-                            SizedBox(width: 20),
-                          ],
-                        )
-                      ],
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            final data = document.data()! as Map<String, dynamic>;
+            return Card(
+              child: Padding(
+                padding: EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      leading: Icon(Icons.task),
+                      title: Text('${data['title']}'),
+                      subtitle: Text('${data['detail']}'),
                     ),
-                  ),
-                );
-              } else {
-                return Card();
-              }
-            },
-          ).toList(),
+                    SizedBox(height: 12),
+                    Text(
+                        '締切日：${DateFormat("yyyy年MM月dd日").format(data['deadline'].toDate())}'),
+                    SizedBox(height: 12),
+                    Text('カテゴリー：${data['category']}'),
+                    SizedBox(height: 12),
+                    Text(
+                        'by ${data['user_id'] == context.read(userProvider).user_id ? context.read(userProvider).user_name : ''}'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        FavoriteButton(data),
+                        SizedBox(width: 20),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              TodoRegistScreen.route_update(
+                                context,
+                                data['id'],
+                                data['title'],
+                                data['detail'],
+                                data['deadline'],
+                                data['category'],
+                              ),
+                            );
+                          },
+                          child: Text('更新する'),
+                          style: TextButton.styleFrom(
+                            primary: Colors.blue,
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        TextButton(
+                          onPressed: () {
+                            FSTodo().deleteTodo(data['id'], context);
+                          },
+                          child: Text('削除する'),
+                          style: TextButton.styleFrom(
+                            primary: Colors.blue,
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
         );
       },
     );

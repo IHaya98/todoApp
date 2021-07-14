@@ -27,10 +27,6 @@ class FSTodo {
           'created_dt': Timestamp.now()
         })
         .then((value) => {
-              context.read(todoRegistProvider).title = '',
-              context.read(todoRegistProvider).detail = '',
-              context.read(todoRegistProvider).date = DateTime.now(),
-              context.read(todoRegistProvider).category = '',
               Navigator.of(context).pop(
                 MainScreen.route(),
               ),
@@ -70,5 +66,35 @@ class FSTodo {
         .delete()
         .then((value) => print("Todo Deleted"))
         .catchError((error) => print("Failed to delete user: $error"));
+  }
+
+  Future<void> addFavorite(String id, String user_id) {
+    if (id == null) {
+      print("ID IS NULL");
+    }
+    return _fs_todo
+        .doc(id)
+        .collection('favorite')
+        .doc(user_id)
+        .set({
+          'id': id,
+          'user_id': user_id,
+          'created_dt': Timestamp.now(),
+        })
+        .then((value) => print("favorite added"))
+        .catchError((error) => print("Failed to favorite add: $error"));
+  }
+
+  Future<void> deleteFavorite(String id, String user_id) {
+    if (id == null) {
+      print("ID IS NULL");
+    }
+    return _fs_todo
+        .doc(id)
+        .collection('favorite')
+        .doc(user_id)
+        .delete()
+        .then((value) => print("favorite deleted"))
+        .catchError((error) => print("Failed to favorite deleted: $error"));
   }
 }

@@ -11,6 +11,10 @@ class HomeViewModel extends ChangeNotifier {
   String get detail => _detail;
   set detail(String value) => _detail = value;
 
+  bool _isFavorite = false;
+  bool get isFavorite => _isFavorite;
+  set isFavorite(bool value) => _isFavorite = value;
+
   HomeViewModel() {}
   HomeViewModel.set(title, detail) {
     this._title = title;
